@@ -1,0 +1,12 @@
+{
+  "name": "cobbler",
+  "version": "0.0.1",
+  "description": "C/C++ Build Tool",
+  "author": "Graham Cox <graham@grahamcox.co.uk>",
+  "repository": "http://github.com/sazzer/cobbler",
+  "license": "ISC",
+  "main": "src/main/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
