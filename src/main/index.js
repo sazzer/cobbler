@@ -1,21 +1,26 @@
 const logger = require('./log');
+const commandLineArgs = require('command-line-args');
 
-logger.trace('Trace');
-logger.debug('Debug');
-logger.info('Info');
-logger.warn('Warn');
-logger.error('Error');
+const cli = commandLineArgs([
+    {name: 'verbose', alias: 'v', type: Boolean},
+    {name: 'buildFile', alias: 'b', type: String},
+    {name: 'commands', type: String, multiple: true, defaultOption: true}
+]);
 
-logger.startGroup("Group");
-logger.trace('Trace');
-logger.debug('Debug');
-logger.info('Info');
-logger.warn('Warn');
-logger.error('Error');
-logger.endGroup();
+const args = cli.parse();
 
-logger.trace('Trace');
-logger.debug('Debug');
-logger.info('Info');
-logger.warn('Warn');
-logger.error('Error');
+if (args.verbose) {
+    logger.setLevel('debug');
+}
+
+logger.trace('Command line args', args);
+
+if (args.commands && args.commands.length > 0) {
+    logger.info("Starting Cobbler");
+    args.commands.forEach((cmd) => {
+        logger.debug("Executing command %s", cmd);
+    });
+    logger.info("Finished Cobbler");
+} else {
+    console.log(cli.getUsage());
+}

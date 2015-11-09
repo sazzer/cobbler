@@ -5,7 +5,8 @@ const consoleTransport = new winston.transports.Console({
         return Date.now();
     },
     align: true,
-    colorize: true
+    colorize: true,
+    level: 'info'
 });
 
 
@@ -44,6 +45,14 @@ logger.startGroup = function(group) {
  */
 logger.endGroup = function() {
     delete consoleTransport.label;
+}
+
+/**
+ * Set the logging level to output
+ * @param {String} level the logging level to output
+ */
+logger.setLevel = function(level) {
+    consoleTransport.level = level;
 }
 
 module.exports = logger;
