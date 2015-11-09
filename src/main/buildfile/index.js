@@ -12,7 +12,7 @@ function loadBuildFile(leaf) {
     return new Promise((resolve, reject) => {
         fs.stat(leaf, (err, stats) => {
             if (err) {
-                log.error("Failed to resolve leaf directory", err);
+                log.error('Failed to resolve leaf directory', err);
                 reject(err);
             }
             

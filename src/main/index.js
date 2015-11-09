@@ -17,15 +17,15 @@ if (args.verbose) {
 logger.trace('Command line args', args);
 
 if (args.commands && args.commands.length > 0) {
-    logger.info("Starting Cobbler");
+    logger.info('Starting Cobbler');
     buildFileLoader.loadBuildFile(process.cwd()).then((buildFile) => {
         args.commands.forEach((cmd) => {
-            logger.debug("Executing command %s", cmd);
+            logger.debug('Executing command %s', cmd);
         });
-        logger.info("Finished Cobbler");
+        logger.info('Finished Cobbler');
     }, (err) => {
         logger.error('Failed to load build file: ', err);
-    });    
+    });
 } else {
     console.log(cli.getUsage());
 }

@@ -23,6 +23,28 @@ module.exports = function(grunt) {
                 }
             }
         },
+        eslint: {
+            options: {
+                configFile: "eslintrc"
+            },
+            main: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/main',
+                    src: ["**/*.js"]
+                }]
+            },
+            test: {
+                options: {
+                    envs: ["mocha"]
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src/test',
+                    src: ["**/*.js"]
+                }]
+            },
+        },
         watch: {
             test: {
                 files: [
@@ -40,8 +62,8 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('build', []);
-    grunt.registerTask('test', ['build', 'mocha_istanbul:test']);
+    grunt.registerTask('build', ['eslint:main']);
+    grunt.registerTask('test', ['build', 'eslint:test', 'mocha_istanbul:test']);
 
     grunt.registerTask('default', ['build', 'test']);
 };
