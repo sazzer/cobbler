@@ -22,6 +22,21 @@ module.exports = function(grunt) {
                     root: 'src'
                 }
             }
+        },
+        watch: {
+            test: {
+                files: [
+                    'package.json',
+                    'GruntFile.js',
+                    'src/**/*'
+                ],
+                tasks: ['test'],
+                options: {
+                    spawn: true,
+                    interrupt: true,
+                    atBegin: true
+                }
+            }
         }
     });
 
