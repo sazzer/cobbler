@@ -1,6 +1,7 @@
 const findParentDir = require('find-parent-dir');
 const log = require('../log');
 const path = require('path');
+const fs = require('fs');
 
 /**
  * Load the build file that is to be used. This is in the earliest parent directory from the provided leaf
@@ -9,15 +10,26 @@ const path = require('path');
  */
 function loadBuildFile(leaf) {
     return new Promise((resolve, reject) => {
-        findParentDir(path.normalize(leaf), 'cobbler.json', (err, dir) => {
+        fs.stat(leaf, (err, stats) => {
             if (err) {
+                log.error("Failed to resolve leaf directory", err);
                 reject(err);
-            } else if (dir) {
-                log.debug('Found cobbler.json at %s', dir);
-                resolve(path.join(dir, 'cobbler.json'));
-            } else {
-                reject('No file found');
             }
+            
+            resolve(leaf)
+        }).then((leaf) => {
+            return new Promise((resolve, reject) => {
+                findParentDir(path.normalize(leaf), 'cobbler.json', (err, dir) => {
+                    if (err) {
+                        reject(err);
+                    } else if (dir) {
+                        log.debug('Found cobbler.json at %s', dir);
+                        resolve(path.join(dir, 'cobbler.json'));
+                    } else {
+                        reject('No file found');
+                    }
+                });
+            });
         });
     });
 }

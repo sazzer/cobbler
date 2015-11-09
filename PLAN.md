@@ -1,7 +1,7 @@
 * 0.0.0 - Setup
   * 0.0.0.1 - Logging ✓
   * 0.0.0.2 - Command Line Parameters ✓
-  * 0.0.0.3 - Locate build config
+  * 0.0.0.3 - Locate build config ✓
   * 0.0.0.4 - Parse build config
 * 0.0.1 - Build simple modules
   * 0.0.1.1 - Build Single-file Executable
