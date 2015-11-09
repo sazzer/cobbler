@@ -1,0 +1,6 @@
+{
+    "name": "Cobbler Example - Simple",
+    "version": "1.0.0",
+    "type": "executable",
+    "language": "c++11"
+}
