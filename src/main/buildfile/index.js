@@ -9,17 +9,22 @@ const fs = require('fs');
  * @return {Promise} a promise for the build file
  */
 function loadBuildFile(leaf) {
-    return new Promise((resolve, reject) => {
-        fs.stat(leaf, (err, stats) => {
-            if (err) {
-                log.error('Failed to resolve leaf directory', err);
-                reject(err);
-            }
-            
-            resolve(leaf)
-        }).then((leaf) => {
+    return Promise.resolve(path.normalize(leaf))
+        .then((leaf) => {
             return new Promise((resolve, reject) => {
-                findParentDir(path.normalize(leaf), 'cobbler.json', (err, dir) => {
+                fs.stat(leaf, (err, stats) => {
+                    if (err) {
+                        log.error('Failed to resolve leaf directory', err);
+                        reject(err);
+                    }
+
+                    resolve(leaf)
+                });
+            });
+        })
+        .then((leaf) => {
+            return new Promise((resolve, reject) => {
+                findParentDir(leaf, 'cobbler.json', (err, dir) => {
                     if (err) {
                         reject(err);
                     } else if (dir) {
@@ -30,8 +35,12 @@ function loadBuildFile(leaf) {
                     }
                 });
             });
+        })
+        .then((buildFile) => {
+            return {
+                buildFile
+            };
         });
-    });
 }
 
 module.exports = {

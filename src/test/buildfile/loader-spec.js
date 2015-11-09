@@ -9,17 +9,26 @@ describe('#loadBuildFile', () => {
         it('Found a file', () => {
             return expect(result).to.eventually.be.resolved;
         });
+        it('Was the correct file', () => {
+            return expect(result).to.eventually.have.property('buildFile', path.join(root, 'cobbler.json'));
+        });
     });
     describe('From one directory down', () => {
         const result = buildFileLoader.loadBuildFile(path.join(root, 'b'));
         it('Found a file', () => {
             return expect(result).to.eventually.be.resolved;
         });
+        it('Was the correct file', () => {
+            return expect(result).to.eventually.have.property('buildFile', path.join(root, 'cobbler.json'));
+        });
     });
     describe('From two directories down', () => {
         const result = buildFileLoader.loadBuildFile(path.join(root, 'b', 'c'));
         it('Found a file', () => {
             return expect(result).to.eventually.be.resolved;
+        });
+        it('Was the correct file', () => {
+            return expect(result).to.eventually.have.property('buildFile', path.join(root, 'cobbler.json'));
         });
     });
     describe('From a non-existant directory', () => {
