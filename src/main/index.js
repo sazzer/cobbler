@@ -1,5 +1,6 @@
 const logger = require('./log');
 const commandLineArgs = require('command-line-args');
+const buildFileLoader = require('./buildfile');
 
 const cli = commandLineArgs([
     {name: 'verbose', alias: 'v', type: Boolean},
@@ -17,10 +18,14 @@ logger.trace('Command line args', args);
 
 if (args.commands && args.commands.length > 0) {
     logger.info("Starting Cobbler");
-    args.commands.forEach((cmd) => {
-        logger.debug("Executing command %s", cmd);
-    });
-    logger.info("Finished Cobbler");
+    buildFileLoader.loadBuildFile(process.cwd()).then((buildFile) => {
+        args.commands.forEach((cmd) => {
+            logger.debug("Executing command %s", cmd);
+        });
+        logger.info("Finished Cobbler");
+    }, (err) => {
+        logger.error('Failed to load build file: ', err);
+    });    
 } else {
     console.log(cli.getUsage());
 }
