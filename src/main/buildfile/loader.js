@@ -3,6 +3,7 @@
 const findParentDir = require('find-parent-dir');
 const path = require('path');
 const fs = require('fs');
+const jsonfile = require('jsonfile');
 const log = require('../log');
 const BuildFile = require('./buildfile');
 
@@ -40,7 +41,15 @@ function loadBuildFile(leaf) {
             });
         })
         .then((buildFile) => {
-            return new BuildFile(buildFile, {});
+            return new Promise((resolve, reject) => {
+                jsonfile.readFile(buildFile, (err, obj) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(new BuildFile(buildFile, obj));
+                    }
+                });
+            });
         });
 }
 

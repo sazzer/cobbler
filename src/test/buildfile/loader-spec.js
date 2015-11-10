@@ -14,6 +14,12 @@ describe('#loadBuildFile', () => {
         it('Was the correct file', () => {
             return expect(result).to.eventually.have.property('buildFile', path.join(root, 'cobbler.json'));
         });
+        it('Had the correct details', () => {
+            return Promise.all([
+                expect(result).to.eventually.have.property('name', 'Cobbler Example - Simple'),
+                expect(result).to.eventually.have.property('version', '1.0.0')
+            ]);
+        });
     });
     describe('From one directory down', () => {
         const result = buildFileLoader.loadBuildFile(path.join(root, 'b'));

@@ -21,6 +21,22 @@ class BuildFile {
     get buildFile() {
         return this._file;
     }
+    
+    /**
+     * Get the name of the project
+     * @return {String} the name of the project
+     */
+    get name() {
+        return this._contents.name;
+    }
+    
+    /**
+     * Get the version of the project
+     * @return {String} the version of the project
+     */
+    get version() {
+        return this._contents.version;
+    }
 }
 
 module.exports = BuildFile;
