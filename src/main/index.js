@@ -1,3 +1,5 @@
+'use strict';
+
 const logger = require('./log');
 const commandLineArgs = require('command-line-args');
 const buildFileLoader = require('./buildfile/loader');

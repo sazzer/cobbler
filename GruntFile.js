@@ -46,6 +46,19 @@ module.exports = function(grunt) {
             },
         },
         watch: {
+            build: {
+                files: [
+                    'package.json',
+                    'GruntFile.js',
+                    'src/**/*'
+                ],
+                tasks: ['default'],
+                options: {
+                    spawn: true,
+                    interrupt: true,
+                    atBegin: true
+                }
+            },
             test: {
                 files: [
                     'package.json',

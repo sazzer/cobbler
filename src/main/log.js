@@ -1,3 +1,5 @@
+'use strict';
+
 const winston = require('winston');
 
 const consoleTransport = new winston.transports.Console({

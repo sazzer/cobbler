@@ -1,7 +1,10 @@
+'use strict';
+
 const findParentDir = require('find-parent-dir');
-const log = require('../log');
 const path = require('path');
 const fs = require('fs');
+const log = require('../log');
+const BuildFile = require('./buildfile');
 
 /**
  * Load the build file that is to be used. This is in the earliest parent directory from the provided leaf
@@ -37,9 +40,7 @@ function loadBuildFile(leaf) {
             });
         })
         .then((buildFile) => {
-            return {
-                buildFile
-            };
+            return new BuildFile(buildFile, {});
         });
 }
 
