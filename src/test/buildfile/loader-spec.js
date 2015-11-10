@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const path = require('path');
-const buildFileLoader = require('../../main/buildfile');
+const buildFileLoader = require('../../main/buildfile/loader');
 
 describe('#loadBuildFile', () => {
     const root = path.join(__dirname, 'a');

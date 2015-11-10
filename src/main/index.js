@@ -1,6 +1,6 @@
 const logger = require('./log');
 const commandLineArgs = require('command-line-args');
-const buildFileLoader = require('./buildfile');
+const buildFileLoader = require('./buildfile/loader');
 
 const cli = commandLineArgs([
     {name: 'verbose', alias: 'v', type: Boolean},
